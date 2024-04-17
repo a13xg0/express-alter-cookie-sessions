@@ -3,7 +3,7 @@ import passport from 'passport'
 import { users } from './models/users'
 
 passport.use(
-  new Strategy((username, password, done) => {
+  new Strategy({ passReqToCallback: true }, (req, username, password, done) => {
     console.log('username', username)
     const user = users.find((user) => user.email === username)
     if (!user) {
@@ -13,6 +13,10 @@ passport.use(
     const valid = password === user.password
     if (!valid) {
       return done(null, false, { message: 'Incorrect username or password.' })
+    }
+    console.log(req.session)
+    if (user.shortSession) {
+      req.sessionOptions.maxAge = 1000
     }
 
     return done(null, user)

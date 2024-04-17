@@ -35,6 +35,8 @@ app.post(
     failureRedirect: '/',
   }),
   (req, res) => {
+    console.log(req.user)
+    console.log(req.sessionOptions)
     res.status(200).send('logged in!')
   },
 )
