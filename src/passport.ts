@@ -14,7 +14,6 @@ passport.use(
     if (!valid) {
       return done(null, false, { message: 'Incorrect username or password.' })
     }
-    console.log(req.session)
     if (user.shortSession) {
       req.sessionOptions.maxAge = 1000
     }
